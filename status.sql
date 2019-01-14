@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `status`
 --
+CREATE DATABASE IF NOT EXISTS `status` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `status`;
 
 -- --------------------------------------------------------
 
@@ -38,6 +40,8 @@ CREATE TABLE `config` (
   `alert_limit` int(11) NOT NULL,
   `rowcount` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+INSERT INTO `config` (`enablesmart`, `smtp`, `smtp_port`, `smtp_username`, `smtp_password`, `admin_email`, `refresh`, `alert_limit`, `rowcount`)
+ VALUES (1, "", "", "", "", "", 10, 3, 20);
 
 -- --------------------------------------------------------
 

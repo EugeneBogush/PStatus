@@ -16,12 +16,22 @@
 
 <?PHP
 include "navbar.php";
-?>
-<?PHP
-include "config.inc.php";
-?>
 
-<?PHP
+include "config.inc.php";
+
+        $updateid      = '';
+        $smtp          = '';
+        $show_modal    = '';
+        $smtp_port     = '';
+        $smtp_username = '';
+        $smtp_password = '';
+        $admin_email   = '';
+        $refresh       = '';
+	$alert_limit   = '';
+	$row_count     = '';
+	$enable_smart  = '';
+	$OUTPUT        = '';
+
 if (isset($_POST['updatesetting'])) {
     
     $db_handle = mysqli_connect($DBServer, $DBUser, $DBPassword);
@@ -35,18 +45,43 @@ if (isset($_POST['updatesetting'])) {
         $smtp_password = mysqli_real_escape_string($db_handle,$_POST['smtp_password']);
         $admin_email   = mysqli_real_escape_string($db_handle,$_POST['admin_email']);
         $refresh       = mysqli_real_escape_string($db_handle,$_POST['refresh']);
-        $enable_smart  = mysqli_real_escape_string($db_handle,$_POST['enable_smart']);
+//        $enable_smart  = mysqli_real_escape_string($db_handle,$_POST['enable_smart']);
+        $enable_smart  = 1;
         //$dir_username = $_POST['dir_username'];
         //$dir_password = $_POST['dir_password'];
         $alert_limit   = mysqli_real_escape_string($db_handle,$_POST['alert_limit']);
         $row_count     = mysqli_real_escape_string($db_handle,$_POST['row_count']);
-        $updatesql     = "UPDATE config SET rowcount = '" . $row_count . "' , alert_limit = '" . $alert_limit . "', enablesmart = '" . $enable_smart . "', smtp = '" . $smtp . "', smtp_port = '" . $smtp_port . "', smtp_username = '" . $smtp_username . "', smtp_password = '" . $smtp_password . "', admin_email = '" . $admin_email . "', refresh = '" . $refresh . "' where id = '1'";
+        $updatesql     = "UPDATE config SET rowcount = '" . $row_count . "' , alert_limit = '" . $alert_limit . "', enablesmart = '" . $enable_smart . "', smtp = '" . $smtp . "', smtp_port = '" . $smtp_port . "', smtp_username = '" . $smtp_username . "', smtp_password = '" . $smtp_password . "', admin_email = '" . $admin_email . "', refresh = '" . $refresh  . "'";
+//        $SQLUPDATE  = "UPDATE servers SET device = '" . $device . "', ip = '" . $ip . "', type='" . $type . "', info='" . $info . "', purpose = '" . $purpose . "' WHERE id = '" . $updateid . "'";
+
         if (mysqli_query($db_handle, $updatesql)) {
-            $OUTPUT = "Settings Updated";
+            $OUTPUT = "Settings Updated: ";
         } else {
             $OUTPUT = "Error updating settings : " . mysqli_error($db_handle);
         }
+    } else {
+	$OUTPUT = "DB not found ";
     }
+} else {
+
+ $db_handle = mysqli_connect($DBServer, $DBUser, $DBPassword);
+ $db_found  = mysqli_select_db($db_handle, $DBName);
+ if ($db_found) {
+    $SQL    = "select * from config";
+    $result = mysqli_query($db_handle, $SQL);
+    while ($db_field = mysqli_fetch_assoc($result)) {
+        $enble_smart  = $db_field['enablesmart'];
+        $smtp      = $db_field['smtp'];
+        $smtp_port    = $db_field['smtp_port'];
+        $id      = $db_field['id'];
+        $smtp_username    = $db_field['smtp_username'];
+        $smtp_password    = $db_field['smtp_password'];
+        $admin_email    = $db_field['admin_email'];
+        $refresh    = $db_field['refresh'];
+        $alert_limit    = $db_field['alert_limit'];
+        $row_count    = $db_field['rowcount'];
+   }
+ }
 }
 ?>
 
@@ -57,7 +92,7 @@ if (isset($_POST['updatesetting'])) {
 <div class="container">
 <table class="table table-striped" id="status" cellpadding="4" cellspacing="4" border="1">
     <thead>
-        <tr><th colspan="5"><center><img src="icons/email-outbox.png">&nbsp;SMTP Settings</th></tr>
+        <tr><th colspan="5"><center><img src="icon/email-outbox.png">&nbsp;SMTP Settings</th></tr>
         <tr><th><b>SMTP</th><th><b>PORT</th><th><b>USERNAME</th><th><b>PASSWORD</th><th><b>ADMIN EMAIL</th></tr>
 </thead>
         <tbody>
@@ -79,7 +114,7 @@ echo $admin_email;
             
 <table class="table table-striped" cellpadding="4" cellspacing="4" border="1">
     <thead>
-    <tr><th colspan="3"><center><img src="icons/settings-cogwheel.png">&nbsp;Misc Settings</th></tr>
+    <tr><th colspan="3"><center><img src="icon/settings-cogwheel.png">&nbsp;Misc Settings</th></tr>
     </thead>
     <tr><td><b>Default Refresh Rate (seconds)</td><td><b>Missed Ping Alert Threshold</td><td><b>Rows to Display</td></tr>
     <tr><td><input type="text" size="20" name="refresh" value="<?PHP

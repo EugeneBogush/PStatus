@@ -35,12 +35,15 @@ include "navbar.php";
 <div class="container">
 <table class="table table-striped table-bordered" id="status">
     <thead>
-        <tr><th colspan="8"><center><img src="icons/005-computer-screen.png">&nbsp;Edit Servers</th></tr>
+        <tr><th colspan="8"><center><img src="icon/005-computer-screen.png">&nbsp;Edit Servers</th></tr>
       <tr><th><b>DEVICE</th><th><b>IP</th><th><b>TYPE</th><th><b>INFO</th><th><b>PURPOSE</th><th><b>UPDATE</th><th>RESET</th><th>DELETE</th></tr>
 </thead>
         <tbody>
 <?PHP
 include "config.inc.php";
+        $show_modal    = "";
+	$OUTPUT = "";
+
 if (isset($_POST['reset'])) {
     $resetid    = mysqli_real_escape_string($db_handle,$_POST['reset']);
     $show_modal = true;
@@ -103,7 +106,7 @@ if ($db_found) {
         $ip      = $db_field['ip'];
         $type    = $db_field['type'];
         $id      = $db_field['id'];
-        $port    = $db_field['port'];
+//        $port    = $db_field['port'];
         $info    = $db_field['info'];
         $purpose = $db_field['purpose'];
 ?>

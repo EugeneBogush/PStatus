@@ -59,7 +59,7 @@ $ip     = $_GET['ip'];
     
 <table class="table" id="status" cellpadding="4" cellspacing="4" border="1">
 <thead>
-<tr><th colspan="4"><center><b><img src="icons/001-window.png">&nbsp;Service Ping Status for <?PHP
+<tr><th colspan="4"><center><b><img src="icon/001-window.png">&nbsp;Service Ping Status for <?PHP
 echo $device;
 ?></th></tr>
 </thead>

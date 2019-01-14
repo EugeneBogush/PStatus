@@ -4,9 +4,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="refresh" content="<?PHP
-echo $refresh;
-?>">
     <title>PStatus</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <!--[if lt IE 9]>
@@ -45,6 +42,8 @@ $(document).ready(function(){
 <div class="container">
 <?PHP
 include "config.inc.php";
+$updateresult = '';
+$updateresult2 = '';
 $db_handle = mysqli_connect($DBServer, $DBUser, $DBPassword);
 $db_found  = mysqli_select_db($db_handle, $DBName);
 
@@ -83,7 +82,7 @@ if (isset($_POST['addservice'])) {
 <input type="hidden" value="addserver" name="addserver">
 <table class="table" cellpadding="4" cellspacing="4" border="1">
 <thead>
-<tr><th colspan="5"><center><img src="icons/005-computer-screen.png">&nbsp;Add Server</th></tr>
+<tr><th colspan="5"><center><img src="icon/005-computer-screen.png">&nbsp;Add Server</th></tr>
 </thead>
   <tr><td>Name</td><td>IP Address</td><td>Type</td><td>Info</td><td>Purpose</td></tr>
 <tr><td><input type="text" size="20" name="device"></td><td><input type="text" size="20" name="ip"></td><td><input type="text" size="20" name="type"></td><td><input type="text" size="20" name="info"></td><td><input type="text" size="20" name="purpose"></td></tr>
@@ -99,7 +98,7 @@ echo $updateresult;
 <input type="hidden" value="addservice" name="addservice">
 <table class="table" cellpadding="3" cellspacing="4" border="1">
 <thead>
-<tr><th colspan="4"><center><img src="icons/001-window.png">&nbsp;Add Service</th></tr>
+<tr><th colspan="4"><center><img src="icon/001-window.png">&nbsp;Add Service</th></tr>
 </thead>
   <tr><td>Name</td><td>Port</td><td>Parent</td></tr>
 <tr><td><input type="text" size="20" name="name"></td><td><input type="text" size="20" name="port"></td><td>

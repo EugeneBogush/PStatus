@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <?PHP
 include "config.inc.php";
+$output = '';
+$DeviceName = '';
+$show_modal = '';
+$row_count = '';
+$port = '';
+
 if (isset($_GET['refresh'])) {
     $refresh = $_GET['refresh'];
 }
@@ -34,9 +40,9 @@ if (isset($_GET['ShowDevice'])) {
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/responsive.bootstrap.min.css">
     <style type="text/css" class="init">
     
     </style>
@@ -44,15 +50,15 @@ if (isset($_GET['ShowDevice'])) {
     </script>
     <script type="text/javascript" src="/media/js/dynamic.php?comments-page=extensions%2Fresponsive%2Fexamples%2Fstyling%2Fbootstrap.html" async>
     </script>
-    <script type="text/javascript" language="javascript" src="//code.jquery.com/jquery-1.12.4.js">
+    <script type="text/javascript" language="javascript" src="/js/jquery-1.12.4.js">
     </script>
-    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js">
+    <script type="text/javascript" language="javascript" src="/js/jquery.dataTables.min.js">
     </script>
-    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js">
+    <script type="text/javascript" language="javascript" src="/js/dataTables.bootstrap.min.js">
     </script>
-    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.min.js">
+    <script type="text/javascript" language="javascript" src="/js/dataTables.responsive.min.js">
     </script>
-    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.1.1/js/responsive.bootstrap.min.js">
+    <script type="text/javascript" language="javascript" src="/js/responsive.bootstrap.min.js">
     </script>
 
     <script src="js/bootstrap.min.js"></script>     
@@ -88,7 +94,7 @@ include "navbar.php";
     <div class="container">
     <table class="table table-striped table-bordered" id="status">
     <thead>
-    <tr><th colspan="6"><center><b><img src="icons/005-computer-screen.png" width="16" height="16">&nbsp;Server Ping Status</th></tr>
+    <tr><th colspan="6"><center><b><img src="icon/005-computer-screen.png" width="16" height="16">&nbsp;Server Ping Status</th></tr>
         <tr><th><b>DEVICE</th><th><b>Type</th><th><b>INFO</th><th><b>PURPOSE</th><th><b>STATUS</th><th><b>UPTIME</th></tr>
     </thead>
     <tbody>
@@ -105,7 +111,7 @@ if ($db_found) {
         $ip      = $db_field['ip'];
         $type    = $db_field['type'];
         $id      = $db_field['id'];
-        $port    = $db_field['port'];
+        //$port    = $db_field['port'];
         $info    = $db_field['info'];
         $purpose = $db_field['purpose'];
         $count   = $db_field['count'];
@@ -131,7 +137,7 @@ if ($db_found) {
         if ($percent > 100) {
             $percent = 100;
         }
-        print "<tr><td><a href='index.php?ShowDevice=" . $id . "'>" . $device . "</a></td><td>" . $type . "</td><td>" . $info . "</td><td><align='right'><a href='services.php?device=" . $device . "&parent=" . $id . "&ip=" . $ip . "' alt='" . $ip . "'><img src='icons/001-window.png'></a> - " . $purpose . "</td>" . $state . "</td><td><div class='progress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='" . round($percent * $scale) . "' aria-valuemin='0' aria-valuemax='100' style='width:" . round($percent * $scale) . "%'>" . round($percent * $scale) . "%</div></div></td></tr>";
+        print "<tr><td><a href='index.php?ShowDevice=" . $id . "'>" . $device . "</a></td><td>" . $type . "</td><td>" . $info . "</td><td><align='right'><a href='services.php?device=" . $device . "&parent=" . $id . "&ip=" . $ip . "' alt='" . $ip . "'><img src='icon/001-window.png'></a> - " . $purpose . "</td>" . $state . "</td><td><div class='progress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='" . round($percent * $scale) . "' aria-valuemin='0' aria-valuemax='100' style='width:" . round($percent * $scale) . "%'>" . round($percent * $scale) . "%</div></div></td></tr>";
     }
     
     mysqli_close($db_handle);
